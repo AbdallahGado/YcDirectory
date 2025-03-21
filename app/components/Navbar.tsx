@@ -10,33 +10,51 @@ const Navbar = () => {
   return (
     <header className="bg-white px-5 py-3 shadow-sm font-work-sans">
       <nav className="flex justify-between items-center text-black">
+        {/* Logo */}
         <Link href="/">
           <Image
             src="/logo.svg"
             alt="logo"
             width={144}
             height={30}
-            style={{ width: "auto", height: "auto" }} // ✅ Prevents Next.js warning
+            style={{ width: "auto", height: "auto" }}
           />
         </Link>
+
         <div className="flex items-center gap-5">
           {session ? (
-            <>
+            <div className="flex items-center gap-4">
               <Link href="/startup/create">
                 <span>Create</span>
               </Link>
+
+              {/* User Info */}
+              <Link
+                href={`/user/${session.user?.name}`}
+                className="flex items-center gap-2"
+              >
+                {session.user?.image && (
+                  <Image
+                  src={session.user.image}
+                  alt="Profile Picture"
+                  width={35}
+                  height={35}
+                  className="rounded-full border"
+                  />
+                )}
+                <span>{session.user?.name}</span>
+              </Link>
+
               <button
                 onClick={() => signOut({ callbackUrl: "/" })}
-                className="text-red-500"
+                className="text-red-500 cursor-pointer hover:underline "
               >
                 Logout
               </button>
-              <Link href={`/user/${session.user?.name}`}>
-                <span> Welcome {session.user?.name}</span>
-              </Link>
-            </>
+            </div>
           ) : (
             <div className="flex items-center gap-4">
+              {/* GitHub Login */}
               <button
                 onClick={() => signIn("github")}
                 className="flex items-center gap-2 border border-gray-800 px-4 py-2 rounded-lg text-gray-800 font-medium hover:bg-gray-800 hover:text-white transition-all duration-200"
@@ -55,6 +73,7 @@ const Navbar = () => {
                 Login with GitHub
               </button>
 
+              {/* Google Login */}
               <button
                 onClick={() => signIn("google")}
                 className="flex items-center gap-2 border border-blue-500 px-4 py-2 rounded-lg text-blue-600 font-medium hover:bg-blue-500 hover:text-white transition-all duration-200"
