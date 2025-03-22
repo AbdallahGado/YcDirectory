@@ -8,7 +8,7 @@ const Navbar = () => {
   const { data: session } = useSession();
 
   return (
-    <header className="bg-white px-5 py-3 shadow-sm font-work-sans">
+    <header className="bg-neutral-100  px-5 py-3 shadow-sm font-work-sans">
       <nav className="flex justify-between items-center text-black">
         {/* Logo */}
         <Link href="/">
@@ -17,7 +17,8 @@ const Navbar = () => {
             alt="logo"
             width={144}
             height={30}
-            style={{ width: "auto", height: "auto" }}
+            priority // ✅ Adds priority for faster loading
+            style={{ width: "auto", height: "auto" }} // ✅ Prevents Next.js warning
           />
         </Link>
 
@@ -33,24 +34,22 @@ const Navbar = () => {
                 href={`/user/${session.user?.name}`}
                 className="flex items-center gap-2"
               >
+                <button
+                  onClick={() => signOut({ callbackUrl: "/" })}
+                  className="text-red-500 cursor-pointer hover:underline "
+                >
+                  Logout
+                </button>
                 {session.user?.image && (
                   <Image
-                  src={session.user.image}
-                  alt="Profile Picture"
-                  width={35}
-                  height={35}
-                  className="rounded-full border"
+                    src={session.user.image}
+                    alt="Profile Picture"
+                    width={35}
+                    height={35}
+                    className="rounded-full border"
                   />
                 )}
-                <span>{session.user?.name}</span>
               </Link>
-
-              <button
-                onClick={() => signOut({ callbackUrl: "/" })}
-                className="text-red-500 cursor-pointer hover:underline "
-              >
-                Logout
-              </button>
             </div>
           ) : (
             <div className="flex items-center gap-4">
