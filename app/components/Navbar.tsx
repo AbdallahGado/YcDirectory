@@ -8,12 +8,12 @@ const Navbar = () => {
   const { data: session } = useSession();
 
   return (
-    <header className="bg-neutral-100  px-5 py-3 shadow-sm font-work-sans">
+    <header className="bg-[#f7f7f7]  px-5 py-3  shadow-sm font-work-sans">
       <nav className="flex justify-between items-center text-black">
         {/* Logo */}
         <Link href="/">
           <Image
-            src="/logo.svg"
+            src="/logo.png"
             alt="logo"
             width={144}
             height={30}
